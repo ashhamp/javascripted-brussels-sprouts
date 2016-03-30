@@ -77,7 +77,7 @@
          var request = new XMLHttpRequest();
          var httpMethod = "GET";
          var apiUrl = "http://localhost:3000/api/v1/dishes";
-         request.open(httpMethod, apiUrl, true);
+         request.open(httpMethod, apiUrl, false);
          request.addEventListener("load", function() {
            if (request.status === 200) {
              var content = JSON.parse(request.responseText);
@@ -102,16 +102,16 @@
 
        // Write your code below. Start by typing `dishes` in your browser console to see what the array contains.
 
+
        var goodDishes = [];
        var badDishes = [];
 
+
+
        var sortDishes = function(dishArr) {
          var goodPatt = /brussels\ssprout/i;
-
          for(var i = 0; i < dishArr.length; i++) {
-
            if (goodPatt.test(dishArr[i])) {
-
              goodDishes.push(dishArr[i]);
            } else {
              badDishes.push(dishArr[i]);
@@ -121,7 +121,7 @@
 
        sortDishes(dishes);
 
-       var appendElement = function(target, tag, text) {
+      var appendElement = function(target, tag, text) {
         var element = document.createElement(tag);
         var textNode = document.createTextNode(text);
         element.appendChild(textNode);
@@ -136,6 +136,23 @@
       }
 
       addGoodDishes(goodDishes);
+
+      function stopDefAction(evt) {
+        evt.preventDefault();
+      }
+
+      var submit = document.getElementById("dish-submit");
+
+      submit.addEventListener('click', stopDefAction, false);
+
+      var addDish = function() {
+        var input = document.getElementById("dish-name").value
+        var body = document.getElementsByTagName("ul")[0];
+        appendElement(body, "li", input);
+      }
+
+      submit.addEventListener("click", addDish, false);
+
 
     </script>
   </body>
